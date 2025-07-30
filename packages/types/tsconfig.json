@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true  },
+  "include": ["src", "index.ts"]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@workspace/common",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo build dist node_modules",
+    "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,mdx}\" --ignore-path=\"../../.prettierignore\"",
+    "format:fix": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,mdx}\" --ignore-path=\"../../.prettierignore\"",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint --fix .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "sharp": "0.34.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.30",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/prettier-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*"
+  },
+  "prettier": "@workspace/prettier-config",
+  "exports": {
+    "./keys": "./keys.ts",
+    "./app": "./src/app.ts",
+    "./errors": "./src/errors.ts",
+    "./http": "./src/http.ts",
+    "./image": "./src/image.ts",
+    "./maybe": "./src/maybe.ts",
+    "./type-guards": "./src/type-guards.ts"
+  }
+}

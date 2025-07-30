@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [".cache", ".turbo", "build", "dist", "node_modules"]
+}

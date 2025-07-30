@@ -1,0 +1,9 @@
+{
+  "name": "@workspace/tooling",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "fast-glob": "^3.3.1"
+  }
+}

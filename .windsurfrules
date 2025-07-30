@@ -1,0 +1,234 @@
+# Windsurf Rules
+
+## Project Overview
+
+This is a project using Next.js, TypeScript, React and a monorepo structure with Turborepo and pnpm workspaces.
+
+## Technology Stack
+
+- Framework: Next.js App Router, TypeScript, React, Node.js
+- UI: Shadcn UI, Tailwind CSS
+- Key libraries: React Hook Form, Zod, Lucide React, NiceModal, Nuqs
+- Database: Prisma ORM
+- Monorepo: Turborepo with pnpm workspaces
+- Namespace: `@workspace/*`
+
+## Project Structure Rules
+
+### Workspace Organization
+
+```
+/apps                   # Applications (executable)
+  /dashboard            # Main web application
+  /marketing            # Marketing pages
+  /public-api           # Public API
+
+/packages               # Shared packages
+  /api-keys             # API key management
+  /auth                 # Authentication logic
+  /billing              # Payment handling
+  /database             # Prisma schema & client
+  /ui                   # Design system (shadcn/ui)
+  /webhooks             # Webhook helpers
+
+/tooling                # Configuration packages
+  /eslint-config        # Linting rules
+  /typescript-config    # TypeScript presets
+```
+
+### File Naming Conventions
+
+- Use kebab-case for file names: `add-item-form.tsx`
+- Schema files: `*-schema.ts` (e.g., `add-item-schema.ts`)
+- Action files: `*.ts` in `/actions` folder
+- Data fetching: `get-*.ts` in `/data` folder
+- DTOs: `*-dto.ts` in `/types/dtos`
+
+## Data Fetching Rules
+
+### Server Components (Primary Pattern)
+
+- Use React Server Components for data fetching
+- Create data fetching functions in `/data` folder
+- Always define explicit DTOs for type safety
+- Use Zod schemas for input validation
+- Implement proper error handling
+
+```typescript
+// Example: apps/dashboard/data/items/get-items.ts
+import { getAuthOrganizationContext } from "@workspace/auth/context";
+import { prisma } from "@workspace/database/client";
+import type { ItemDto } from "~/types/dtos/item-dto";
+
+export async function getItems(): Promise<ItemDto[]> {
+  const ctx = await getAuthOrganizationContext();
+  return await prisma.item.findMany({
+    where: { organizationId: ctx.organization.id },
+    select: { id: true, name: true },
+    orderBy: { name: "asc" },
+  });
+}
+```
+
+### Caching Strategy
+
+- Use `unstable_cache` for server-side caching
+- Implement cache tags for revalidation
+- Use organization-scoped cache keys
+
+### Authentication Context
+
+- Use `getAuthContext()` for user-specific data
+- Use `getAuthOrganizationContext()` for organization-specific data
+- Always validate organization membership
+
+## Mutation Rules
+
+### Server Actions (Primary Pattern)
+
+- Use Next Safe Action for type-safe server actions
+- Always add `'use server'` directive
+- Use appropriate action clients:
+  - `actionClient` - Basic actions
+  - `authActionClient` - Authenticated actions
+  - `authOrganizationActionClient` - Organization-scoped actions
+
+```typescript
+// Example: apps/dashboard/actions/items/add-item.ts
+"use server";
+import { authOrganizationActionClient } from "~/actions/safe-action";
+import { addItemSchema } from "~/schemas/items/add-item-schema";
+
+export const addItem = authOrganizationActionClient
+  .metadata({ actionName: "addItem" })
+  .inputSchema(addItemSchema)
+  .action(async ({ parsedInput, ctx }) => {
+    // Implementation
+  });
+```
+
+### Security Rules
+
+- Never trust user input for `organizationId` or `userId`
+- Always use context values: `ctx.organization.id`, `ctx.session.user.id`
+- Include organization/user filters in database queries
+- Validate all inputs with Zod schemas
+
+## State Management Rules
+
+### URL State (Primary)
+
+- Use search params for shareable state with Nuqs library
+- Create `searchParamsCache` for server components
+- Use `useQueryState` hook for client components
+- Always provide transitions for non-blocking UI
+
+```typescript
+// Server component
+const searchParamsCache = createSearchParamsCache({
+  searchQuery: parseAsString.withDefault(""),
+});
+
+// Client component
+const [searchQuery, setSearchQuery] = useQueryState("searchQuery", {
+  startTransition: transition.startTransition,
+  shallow: false,
+});
+```
+
+### Component State
+
+- Use React state (`useState`, `useReducer`) for local state
+- Avoid global state unless absolutely necessary
+
+## Form Rules
+
+### Form Implementation
+
+- Use React Hook Form with `useZodForm` hook
+- Always create separate Zod schemas in `/schemas` folder
+- Use Shadcn UI form components (`FormField`, `FormControl`, etc.)
+- Implement proper error handling and validation
+
+```typescript
+// Schema definition
+export const addItemSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+});
+
+// Form component
+const methods = useZodForm({
+  schema: addItemSchema,
+  mode: "onSubmit",
+});
+```
+
+## Modal Rules
+
+### Modal Implementation
+
+- Use NiceModal for modal management
+- Create responsive modals (Dialog for desktop, Drawer for mobile)
+- Use `useEnhancedModal` hook
+- Always implement proper form handling within modals
+
+```typescript
+export const AddItemModal = NiceModal.create<AddItemModalProps>(({ name }) => {
+  const modal = useEnhancedModal();
+  const mdUp = useMediaQuery(MediaQueries.MdUp, { ssr: false });
+  // Implementation
+});
+```
+
+## UI Component Rules
+
+### Component Organization
+
+- Reusable components go in `@workspace/ui` package
+- App-specific components in respective app folders
+- Use proper TypeScript interfaces for props
+- Follow Shadcn UI patterns and conventions
+
+### Styling Rules
+
+- Use Tailwind CSS for styling
+- Prefer utility classes over custom CSS
+- Use `cn()` utility for conditional classes
+- Follow responsive design patterns
+
+## Import Rules
+
+### Import Order
+
+1. React imports
+2. Third-party libraries
+3. Workspace packages (`@workspace/*`)
+4. Relative imports (`~/`)
+
+### Workspace Imports
+
+- Use `@workspace/ui/components/*` for UI components
+- Use `@workspace/database` for Prisma
+- Use `@workspace/auth` for authentication
+
+## Error Handling Rules
+
+- Use `ValidationError` from `@workspace/common/errors`
+- Always validate inputs with Zod
+- Implement proper error boundaries
+
+## Code Quality Rules
+
+### TypeScript
+
+- Use strict TypeScript configuration
+- Define proper interfaces and types
+- Avoid `any` type usage
+- Use type guards when necessary
+
+### Code Organization
+
+- Keep functions small and focused
+- Use descriptive names for variables and functions
+- Implement proper separation of concerns
+- Follow single responsibility principle

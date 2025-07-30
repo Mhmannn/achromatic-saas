@@ -1,0 +1,18 @@
+packages:
+  - apps/dashboard
+  - apps/marketing
+  - apps/public-api
+  - packages/analytics
+  - packages/api-keys
+  - packages/auth
+  - packages/billing
+  - packages/common
+  - packages/database
+  - packages/email
+  - packages/monitoring
+  - packages/rate-limit
+  - packages/routes
+  - packages/tooling
+  - packages/types
+  - packages/ui
+  - packages/webhooks

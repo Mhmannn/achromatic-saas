@@ -1,0 +1,9 @@
+packages/database/prisma/migrations
+packages/ui
+tooling/
+pnpm-lock.yaml
+.env
+.idea
+.vscode
+.zed
+.windsurfrules

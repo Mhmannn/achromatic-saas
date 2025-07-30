@@ -1,0 +1,61 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+  binaryTargets   = ["native"]
+  seed            = "tsx prisma/seed.ts"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["public", "auth"]
+}
+
+enum Role {
+  admin
+  user
+
+  @@schema("public")
+}
+
+// Custom public user model
+model public_users {
+  id    String  @id @default(uuid())
+  email String  @unique
+  name  String?
+  role  Role    @default(user)
+
+  @@map("users")
+  @@schema("public")
+}
+
+// Example custom model
+model Client {
+  id      String     @id @default(uuid())
+  name    String
+  ownerId String
+  owner   auth_users @relation(fields: [ownerId], references: [id])
+
+  @@schema("public")
+}
+
+// Supabase's internal auth table – read-only
+model auth_users {
+  id                 String    @id @default(uuid())
+  instance_id        String?
+  aud                String
+  role               String
+  email              String    @unique
+  encrypted_password String?
+  confirmed_at       DateTime?
+  last_sign_in_at    DateTime?
+  raw_app_meta_data  Json
+  raw_user_meta_data Json
+  is_super_admin     Boolean?
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+  Client             Client[]
+
+  @@map("users")
+  @@schema("auth")
+}
