@@ -1,8 +1,9 @@
 {
   "name": "@workspace/eslint-config",
   "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
   "private": true,
-  "type": "module",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
     "format": "prettier --check \"**/*.{js,cjs,mjs,ts,tsx,mdx}\" --ignore-path=\"../../.prettierignore\"",

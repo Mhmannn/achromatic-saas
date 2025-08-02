@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "@types/node": "22.15.30",
-    "@workspace/eslint-config": "workspace:*",
     "@workspace/prettier-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*"
   },

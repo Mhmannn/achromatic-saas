@@ -1,25 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "lib": ["DOM", "DOM.Iterable", "ES2021"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node16",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "strict": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "incremental": true,
-    "types": ["node"],
-    "baseUrl": ".",
-    "paths": {
-      "@workspace/*": ["packages/*/src"],
-      "@workspace/database": ["packages/database/src"],
-      "@workspace/database/*": ["packages/database/src/*"]
-    }
+    "isolatedModules": true
   }
 }

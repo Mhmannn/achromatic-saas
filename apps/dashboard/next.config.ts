@@ -1,8 +1,9 @@
 import { type NextConfig } from 'next/types';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { createSecureHeaders } from 'next-secure-headers';
+import path from 'path';
 
-import { MonitoringProvider } from '@workspace/monitoring/provider';
+import { MonitoringProvider } from '@workspace/monitoring/src/provider';
 
 const INTERNAL_PACKAGES = [
   '@workspace/api-keys',
@@ -53,16 +54,8 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: '/',
-        destination: '/auth',
-        permanent: false
-      },
-      {
-        source: '/auth',
-        destination: '/auth/sign-in',
-        permanent: false
-      },
+      { source: '/', destination: '/auth', permanent: false },
+      { source: '/auth', destination: '/auth/sign-in', permanent: false },
       {
         source: '/organizations/:slug/settings',
         destination: '/organizations/:slug/settings/account',
@@ -79,6 +72,19 @@ const nextConfig: NextConfig = {
         permanent: false
       }
     ];
+  },
+
+  /** ✅ Webpack alias fallback for Vercel production builds */
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      '@workspace/database': path.resolve(__dirname, '../../packages/database/src'),
+      '@workspace/auth': path.resolve(__dirname, '../../packages/auth/src'),
+      '@workspace/ui': path.resolve(__dirname, '../../packages/ui/src'),
+      '@workspace/common': path.resolve(__dirname, '../../packages/common/src'),
+      '@workspace/monitoring': path.resolve(__dirname, '../../packages/monitoring/src')
+    };
+    return config;
   }
 };
 

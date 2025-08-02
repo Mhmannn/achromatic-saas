@@ -32,6 +32,9 @@ importers:
       '@turbo/gen':
         specifier: 2.5.4
         version: 2.5.4(@types/node@22.15.30)(typescript@5.8.3)
+      '@types/next':
+        specifier: ^9.0.0
+        version: 9.0.0(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@types/node':
         specifier: 22.15.30
         version: 22.15.30
@@ -210,9 +213,6 @@ importers:
       '@types/uuid':
         specifier: 10.0.0
         version: 10.0.0
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../../packages/tooling/prettier-config
@@ -331,9 +331,6 @@ importers:
       '@types/unist':
         specifier: 3.0.3
         version: 3.0.3
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../../packages/tooling/prettier-config
@@ -410,9 +407,6 @@ importers:
       '@types/swagger-ui-react':
         specifier: 5.18.0
         version: 5.18.0
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../../packages/tooling/prettier-config
@@ -453,9 +447,6 @@ importers:
       '@types/react-dom':
         specifier: 19.0.3
         version: 19.0.3(@types/react@19.0.8)
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -475,9 +466,6 @@ importers:
       '@types/node':
         specifier: 22.15.30
         version: 22.15.30
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -542,9 +530,6 @@ importers:
       '@types/uuid':
         specifier: 10.0.0
         version: 10.0.0
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -603,9 +588,6 @@ importers:
       '@types/react-dom':
         specifier: 19.0.3
         version: 19.0.3(@types/react@19.0.8)
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -622,9 +604,6 @@ importers:
       '@types/node':
         specifier: 22.15.30
         version: 22.15.30
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -696,9 +675,6 @@ importers:
       '@types/react-dom':
         specifier: 19.0.3
         version: 19.0.3(@types/react@19.0.8)
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -736,9 +712,6 @@ importers:
       '@types/react-dom':
         specifier: 19.0.3
         version: 19.0.3(@types/react@19.0.8)
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -755,9 +728,6 @@ importers:
       '@types/memory-cache':
         specifier: 0.2.6
         version: 0.2.6
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -777,9 +747,6 @@ importers:
       '@types/node':
         specifier: 22.15.30
         version: 22.15.30
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -850,6 +817,8 @@ importers:
   packages/tooling/requirements-check: {}
 
   packages/tooling/typescript-config: {}
+
+  packages/types: {}
 
   packages/ui:
     dependencies:
@@ -959,9 +928,6 @@ importers:
       '@types/react-dom':
         specifier: 19.0.3
         version: 19.0.3(@types/react@19.0.8)
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -984,9 +950,6 @@ importers:
       '@types/node':
         specifier: 22.15.30
         version: 22.15.30
-      '@workspace/eslint-config':
-        specifier: workspace:*
-        version: link:../tooling/eslint-config
       '@workspace/prettier-config':
         specifier: workspace:*
         version: link:../tooling/prettier-config
@@ -3993,6 +3956,10 @@ packages:
 
   '@types/mysql@2.15.26':
     resolution: {integrity: sha512-DSLCOXhkvfS5WNNPbfn2KdICAmk8lLc+/PNvnPnF7gOdMZCxopXduqv0OQ13y/yA/zXTSikZZqVgybUxOEg6YQ==}
+
+  '@types/next@9.0.0':
+    resolution: {integrity: sha512-gnBXM8rP1mnCgT1uE2z8SnpFTKRWReJlhbZLZkOLq/CH1ifvTNwjIVtXvsywTy1dwVklf+y/MB0Eh6FOa94yrg==}
+    deprecated: This is a stub types definition. next provides its own type definitions, so you do not need this installed.
 
   '@types/node@14.18.63':
     resolution: {integrity: sha512-fAtCfv4jJg+ExtXhvCkCqUKZ+4ok/JQk01qDKhL5BDDoS3AxKXhV5/MAVUZyQnSEd2GT92fkgZl0pz0Q0AzcIQ==}
@@ -12555,6 +12522,19 @@ snapshots:
   '@types/mysql@2.15.26':
     dependencies:
       '@types/node': 22.15.30
+
+  '@types/next@9.0.0(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      next: 15.3.3(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@opentelemetry/api'
+      - '@playwright/test'
+      - babel-plugin-macros
+      - babel-plugin-react-compiler
+      - react
+      - react-dom
+      - sass
 
   '@types/node@14.18.63': {}
 

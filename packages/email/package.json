@@ -33,7 +33,6 @@
     "@types/nodemailer": "6.4.17",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
-    "@workspace/eslint-config": "workspace:*",
     "@workspace/prettier-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*"
   },

@@ -56,7 +56,6 @@
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
     "@types/unist": "3.0.3",
-    "@workspace/eslint-config": "workspace:*",
     "@workspace/prettier-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "mdx-bundler": "10.1.1",
