@@ -1,7 +1,18 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "composite": true
+    // Required for project references in a monorepo
+    "composite": true,
+
+    // Ensure module system aligns with Node16
+    "module": "Node16",
+    "moduleResolution": "Node16",
+
+    // Recommended for smooth ESM/TypeScript interop
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
   "files": [],
   "include": ["apps", "packages"]

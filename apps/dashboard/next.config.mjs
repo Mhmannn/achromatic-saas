@@ -1,9 +1,6 @@
-import { type NextConfig } from 'next/types';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { createSecureHeaders } from 'next-secure-headers';
-import path from 'path';
-
-import { MonitoringProvider } from '@workspace/monitoring/src/provider';
+import MonitoringProvider from '../../packages/monitoring/src/provider/index.js';
 
 const INTERNAL_PACKAGES = [
   '@workspace/api-keys',
@@ -19,8 +16,10 @@ const INTERNAL_PACKAGES = [
   '@workspace/webhooks'
 ];
 
-const nextConfig: NextConfig = {
-  /** Enables hot reloading for local packages without a build step */
+// Safe env resolution in ESM context
+const env = (globalThis.process && globalThis.process.env) || {};
+
+const nextConfig = {
   transpilePackages: INTERNAL_PACKAGES,
   serverExternalPackages: [],
   experimental: {
@@ -74,23 +73,11 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  /** ✅ Webpack alias fallback for Vercel production builds */
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...(config.resolve.alias || {}),
-      '@workspace/database': path.resolve(__dirname, '../../packages/database/src'),
-      '@workspace/auth': path.resolve(__dirname, '../../packages/auth/src'),
-      '@workspace/ui': path.resolve(__dirname, '../../packages/ui/src'),
-      '@workspace/common': path.resolve(__dirname, '../../packages/common/src'),
-      '@workspace/monitoring': path.resolve(__dirname, '../../packages/monitoring/src')
-    };
-    return config;
-  }
+  webpack: (config) => config
 };
 
-const bundleAnalyzerConfig =
-  process.env.ANALYZE === 'true'
+export default MonitoringProvider.withConfig(
+  env.ANALYZE === 'true'
     ? withBundleAnalyzer({ enabled: true })(nextConfig)
-    : nextConfig;
-
-export default MonitoringProvider.withConfig(bundleAnalyzerConfig);
+    : nextConfig
+);

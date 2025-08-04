@@ -1,17 +1,20 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    // Output for any compiled JS (optional for now)
     "outDir": "dist",
-    "forceConsistentCasingInFileNames": true
+
+    // Match Node16 ESM expectations
+    "module": "Node16",
+    "moduleResolution": "Node16",
+
+    // Safety for imports
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "."
-  ],
-  "exclude": [
-    ".cache",
-    ".turbo",
-    "build",
-    "dist",
-    "node_modules"
-  ]
+  "include": ["."],
+  "exclude": [".cache", ".turbo", "build", "dist", "node_modules"]
 }
